@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
-      - template_network
+      - template
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.3.1
@@ -39,9 +39,10 @@ services:
     depends_on:
       - postgres
     networks:
-      - template_network
+      - template
 
   vue:
+    image: vue-ui
     build: .
     container_name: ui
     ports:
@@ -50,12 +51,12 @@ services:
     depends_on:
       - keycloak
     networks:
-      - template_network
+      - template
 
 volumes:
   postgres_volume:
     name: postgres_volume
 
 networks:
-  template_network:
-    name: template_network
+  template:
+    name: template
